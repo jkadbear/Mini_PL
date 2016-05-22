@@ -1,0 +1,22 @@
+Pro
+    Decl x w End
+    LetBe x Num 1 End End
+    Func g Para z End
+        Pro
+            Return Plus Id x End Id z End End End
+        End
+    End
+    Func f Para y End
+        Pro
+            Decl x End
+            LetBe x Plus Id y End Num 1 End End End
+            Return
+                AppFun g 
+                    List Mult Id y End Id x End End End
+                End
+            End
+        End
+    End
+    Read w End
+    Print AppFun f List Id w End End End End
+End
