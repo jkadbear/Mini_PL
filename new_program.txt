@@ -1,0 +1,6 @@
+Pro
+	Decl x y End
+	Read y End
+	LetBe x Plus Id y End Num 30 End End End
+	Print Id x End End
+End
