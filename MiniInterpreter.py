@@ -220,12 +220,18 @@ class Interpreter:
 				self.interpret(node.child_nodes[1])
 				node.num = self.get_val(node.child_nodes[0]) * \
 							self.get_val(node.child_nodes[1])
-			elif node.constr_kind == AppFun or node.constr_kind == RunFun:
+			elif node.constr_kind == AppFun:
 				for subnode in node.child_nodes[1].child_nodes:
 					self.interpret(subnode)
 				(function, access_link) = self.get_func(node)
 				self.add_AR(access_link)
 				node.num = self.run_node(node, function)
+		elif node.constr_kind == RunFun:
+			for subnode in node.child_nodes[1].child_nodes:
+				self.interpret(subnode)
+			(function, access_link) = self.get_func(node)
+			self.add_AR(access_link)
+			node.num = self.run_node(node, function)
 		elif node.constr_kind == Pro:
 			for subnode in node.child_nodes:
 				self.interpret(subnode)

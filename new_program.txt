@@ -1,6 +1,12 @@
 Pro
 	Decl x y End
 	Read y End
-	LetBe x Plus Id y End Num 30 End End End
+	Func f Para x End 
+		Pro
+			Print Minus Id x End Num 2 End End End
+		End
+	End
+	LetBe x Plus Id y End Num 3 End End End
 	Print Id x End End
+	RunFun f List Id x End End End
 End
