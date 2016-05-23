@@ -95,7 +95,8 @@ class Activity_Record:
 			else:
 				return None
 		# Num Node or Print Node or Return Node
-		elif node.constr_kind == Num or node.constr_kind == Print:
+		elif node.constr_kind == Num or node.constr_kind == Print \
+				or node.constr_kind == Return:
 			return node.child_nodes[0].num
 		# Exp Node
 		else:
@@ -202,31 +203,24 @@ class Interpreter:
 		interpret a procedure or a sentence
 		"""
 		self.ret_val = 0
-		if node.kind == EXPR:
-			if node.constr_kind == Id or node.constr_kind == Num:
-				node.num = self.get_val(node)
-			elif node.constr_kind == Plus:
-				self.interpret(node.child_nodes[0])
-				self.interpret(node.child_nodes[1])
-				node.num = self.get_val(node.child_nodes[0]) + \
-							self.get_val(node.child_nodes[1])
-			elif node.constr_kind == Minus:
-				self.interpret(node.child_nodes[0])
-				self.interpret(node.child_nodes[1])
-				node.num = self.get_val(node.child_nodes[0]) - \
-							self.get_val(node.child_nodes[1])
-			elif node.constr_kind == Mult:
-				self.interpret(node.child_nodes[0])
-				self.interpret(node.child_nodes[1])
-				node.num = self.get_val(node.child_nodes[0]) * \
-							self.get_val(node.child_nodes[1])
-			elif node.constr_kind == AppFun:
-				for subnode in node.child_nodes[1].child_nodes:
-					self.interpret(subnode)
-				(function, access_link) = self.get_func(node)
-				self.add_AR(access_link)
-				node.num = self.run_node(node, function)
-		elif node.constr_kind == RunFun:
+		if node.constr_kind == Id or node.constr_kind == Num:
+			node.num = self.get_val(node)
+		elif node.constr_kind == Plus:
+			self.interpret(node.child_nodes[0])
+			self.interpret(node.child_nodes[1])
+			node.num = self.get_val(node.child_nodes[0]) + \
+						self.get_val(node.child_nodes[1])
+		elif node.constr_kind == Minus:
+			self.interpret(node.child_nodes[0])
+			self.interpret(node.child_nodes[1])
+			node.num = self.get_val(node.child_nodes[0]) - \
+						self.get_val(node.child_nodes[1])
+		elif node.constr_kind == Mult:
+			self.interpret(node.child_nodes[0])
+			self.interpret(node.child_nodes[1])
+			node.num = self.get_val(node.child_nodes[0]) * \
+						self.get_val(node.child_nodes[1])
+		elif node.constr_kind == AppFun or node.constr_kind == RunFun:
 			for subnode in node.child_nodes[1].child_nodes:
 				self.interpret(subnode)
 			(function, access_link) = self.get_func(node)
@@ -252,7 +246,7 @@ class Interpreter:
 			self.do_write(self.get_val(node))
 		elif node.constr_kind == Return:
 			self.interpret(node.child_nodes[0])
-			self.ret_val = self.get_val(node.child_nodes[0])
+			self.ret_val = self.get_val(node)
 
 	def final_write(self):
 		with open('output.txt', 'w') as f:
