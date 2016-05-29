@@ -1,12 +1,34 @@
 Pro
-	Decl x y End
-	Read y End
-	Func f Para x End 
+	Func f Para x End
 		Pro
-			Print Minus Id x End Num 2 End End End
+			Return 
+				Mult	
+					Id x End
+					Num 3 End
+				End
+			End
 		End
 	End
-	LetBe x Plus Id y End Num 3 End End End
-	Print Id x End End
-	RunFun f List Id x End End End
+	Func ff Para FunName g End x End 
+		Pro
+			Print
+				Plus
+				AppFun 
+					g
+					List
+						Id x End
+					End
+				End
+				Num 1 End
+				End
+			End
+		End
+	End
+	RunFun
+		ff
+		List 
+			FunName f End
+			Num 1 End
+		End
+	End
 End

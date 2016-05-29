@@ -1,22 +1,17 @@
 Pro
-    Decl x w End
-    LetBe x Num 1 End End
+    Decl x End
+    LetBe x Num 4 End End
     Func g Para z End
         Pro
-            Return Plus Id x End Id z End End End
+            Return Mult Id x End Id z End End End
         End
     End
-    Func f Para y End
+    Func f Para FunName h End End
         Pro
             Decl x End
-            LetBe x Plus Id y End Num 1 End End End
-            Return
-                AppFun g 
-                    List Mult Id y End Id x End End End
-                End
-            End
+            LetBe x Num 7 End End
+            Return Plus AppFun h List Num 3 End End End Id x End End End
         End
     End
-    Read w End
-    Print AppFun f List Id w End End End End
+    Print AppFun f List FunName g End End End End
 End
